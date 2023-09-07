@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            color: #555;
+        }
+
+        form {
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 200px;
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button[type="submit"] {
+            background-color: #0077cc; /* Azul claro */
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-left: 5px;
+        }
+
+        p {
+            text-align: center;
+            margin: 10px;
+        }
+
+        .task {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+            margin: 10px auto;
+            width: 60%;
+            background-color: #f5f5f5; /* Cinza claro */
+        }
+
+        .task p {
+            margin: 0;
+        }
+
+        .complete,
+        .not-complete,
+        a.update,
+        a.delete {
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-left: 5px;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        .complete {
+            background-color: #4caf50; /* Verde claro */
+            color: white;
+        }
+
+        .not-complete {
+            background-color: #f44336; /* Vermelho claro */
+            color: white;
+        }
+
+        a.update {
+            background-color: #03a9f4; /* Azul claro */
+            color: white;
+        }
+
+        a.delete {
+            background-color: #ff5722; /* Laranja claro */
+            color: white;
+        }
+
+        .button-container {
+            text-align: center;
+        }
+
+        a.update,
+        a.delete {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>To Do App</h1>
+
+<form action="/add" method="post">
+    <div>
+        <label for="title">Tasks</label>
+        <input type="text" name="title" placeholder="Enter Task...">
+        <button type="submit">Add</button>
+    </div>
+</form>
+
+{% for todo in todo_list %}
+<div class="task">
+    <p>
+        {% if todo.complete == False %}
+            <span class="not-complete">Not Complet</span>
+        {% else %}
+            <span class="complete">Completed</span>
+        {% endif %}
+        {{ todo.id }} | {{ todo.title }}
+    </p>
+    <div class="button-container">
+        <a class="update" href="/update/{{ todo.id }}">Update</a>
+        <a class="delete" href="/delete/{{ todo.id }}">Delete</a>
+    </div>
+</div>
+{% endfor %}
+
+</body>
+</html>
